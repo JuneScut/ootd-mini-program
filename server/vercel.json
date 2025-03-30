@@ -8,6 +8,14 @@
   ],
   "routes": [
     {
+      "src": "/api/ootd",
+      "dest": "app.js",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "timeout": 120
+    },
+    {
       "src": "/(.*)",
       "dest": "app.js"
     }
