@@ -9,28 +9,46 @@ Page({
     // 个人信息
     city: "上海",
     gender: "女生",
-    description: "喜欢甜酷风格，偏爱舒适的穿搭，通常会根据天气调整风格",
+    description: "喜欢简约风格，长头发",
 
     // 设置
     weatherNotification: true,
+
+    hasUserInfo: false,
+    userInfo: {},
   },
 
   onShow: function () {
     // 每次页面显示时刷新用户信息，确保数据最新
-    this.getUserInfo();
+    this.getUserInfoFromStorage();
   },
 
   onLoad: function () {
     // 页面加载时获取用户信息
-    this.getUserInfo();
+    this.getUserInfoFromStorage();
   },
 
-  // 获取用户信息
-  getUserInfo: function () {
-    // 这里可以从缓存或服务器获取用户信息
-    const userInfo = wx.getStorageSync("userInfo");
-    if (userInfo) {
+  // 从本地缓存获取用户信息
+  getUserInfoFromStorage: function () {
+    const userInfo = wx.getStorageSync("userInfo") || {};
+    const wxUserInfo = wx.getStorageSync("wxUserInfo") || {};
+
+    // 合并两个对象，先检查是否有微信用户信息
+    if (wxUserInfo.nickName) {
       this.setData({
+        hasUserInfo: true,
+        userInfo: {
+          ...wxUserInfo,
+          ...userInfo,
+        },
+        city: userInfo.city || this.data.city,
+        gender: userInfo.gender === "male" ? "男生" : "女生",
+        description: userInfo.description || this.data.description,
+      });
+    } else {
+      this.setData({
+        hasUserInfo: false,
+        userInfo: userInfo,
         city: userInfo.city || this.data.city,
         gender: userInfo.gender === "male" ? "男生" : "女生",
         description: userInfo.description || this.data.description,
@@ -38,15 +56,75 @@ Page({
     }
   },
 
+  // 获取用户信息
+  getUserProfile: function () {
+    wx.getUserProfile({
+      desc: "用于完善个人资料", // 声明获取用户信息后的用途
+      success: (res) => {
+        console.log("获取微信用户信息成功", res.userInfo);
+
+        // 存储微信用户信息
+        wx.setStorageSync("wxUserInfo", res.userInfo);
+
+        // 更新页面状态
+        this.setData({
+          hasUserInfo: true,
+          userInfo: {
+            ...this.data.userInfo,
+            ...res.userInfo,
+          },
+        });
+
+        // 更新本地存储的用户信息
+        const userInfo = wx.getStorageSync("userInfo") || {};
+        wx.setStorageSync("userInfo", {
+          ...userInfo,
+          avatarUrl: res.userInfo.avatarUrl,
+          nickName: res.userInfo.nickName,
+        });
+
+        wx.showToast({
+          title: "授权成功",
+          icon: "success",
+        });
+      },
+      fail: (err) => {
+        console.error("获取用户信息失败", err);
+        wx.showToast({
+          title: "授权失败",
+          icon: "none",
+        });
+      },
+    });
+  },
+
   // 编辑城市
   editCity: function () {
     // 使用更可靠的微信原生弹窗API
     wx.showActionSheet({
-      itemList: ["北京", "上海", "广州", "深圳", "杭州", "其他城市"],
+      itemList: [
+        "北京",
+        "上海",
+        "广州",
+        "深圳",
+        "杭州",
+        "成都",
+        "重庆",
+        "武汉",
+      ],
       success: (res) => {
         if (res.tapIndex !== undefined) {
           // 确保用户点击了某个选项而不是取消
-          const cities = ["北京", "上海", "广州", "深圳", "杭州", "其他城市"];
+          const cities = [
+            "北京",
+            "上海",
+            "广州",
+            "深圳",
+            "杭州",
+            "成都",
+            "重庆",
+            "武汉",
+          ];
           const selectedCity = cities[res.tapIndex];
 
           if (selectedCity === "其他城市") {
@@ -128,12 +206,14 @@ Page({
   // 编辑性别
   editGender: function () {
     wx.showActionSheet({
-      itemList: ["男生", "女生"],
+      itemList: ["女生", "男生"],
       success: (res) => {
         if (!res.cancel) {
-          const genders = ["男生", "女生"];
+          const genders = ["female", "male"];
+          const selectedGender = genders[res.tapIndex];
+          const displayGender = res.tapIndex === 0 ? "女生" : "男生";
           this.setData({
-            gender: genders[res.tapIndex],
+            gender: displayGender,
           });
 
           // 保存到本地
@@ -178,9 +258,15 @@ Page({
 
   // 开关天气通知
   toggleWeatherNotification: function (e) {
+    const isChecked = e.detail.value;
     this.setData({
-      weatherNotification: e.detail.value,
+      weatherNotification: isChecked,
     });
+
+    // 可以在这里更新用户设置
+    const userInfo = wx.getStorageSync("userInfo") || {};
+    userInfo.weatherNotification = isChecked;
+    wx.setStorageSync("userInfo", userInfo);
   },
 
   // 保存用户信息到本地

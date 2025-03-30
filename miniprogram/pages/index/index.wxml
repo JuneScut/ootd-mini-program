@@ -93,6 +93,7 @@
 </popup>
 
 <!-- 微信小程序底部导航栏 -->
+<!-- 
 <view class="wx-tab-bar">
   <view class="wx-tab-item active">
     <text class="wx-tab-icon">👕</text>
@@ -103,3 +104,4 @@
     <view>我的</view>
   </navigator>
 </view>
+-->

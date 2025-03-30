@@ -71,10 +71,10 @@
   <!-- 个人描述 -->
   <view class="slide {{currentSlide === 4 ? 'slide-4-active' : 'slide-4'}}" id="slide4">
     <view class="form-container">
-      <view class="form-title">您的穿衣风格偏好</view>
-      <view class="form-subtitle">简单描述一下您喜欢的风格，我们将为您提供更准确的穿搭推荐</view>
+      <view class="form-title">您的个人特征</view>
+      <view class="form-subtitle">简单描述一下您的个人特征，我们将为您提供更准确的穿搭推荐</view>
       
-      <textarea class="form-textarea" placeholder="例如：喜欢简约风格，偏爱深色系，不喜欢太花哨的设计..." bindinput="onDescriptionInput" value="{{description}}"></textarea>
+      <textarea class="form-textarea" placeholder="例如：长头发带眼镜女生，不喜欢太花哨的设计..." bindinput="onDescriptionInput" value="{{description}}"></textarea>
       
       <button class="complete-button" bindtap="completeOnboarding">
         开始使用

@@ -1,13 +1,24 @@
 <view class="content-container">
   <!-- 个人资料头部 -->
   <view class="profile-header text-white">
-    <view class="user-info">
-      <image src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="profile-avatar" mode="aspectFill"></image>
-      <view class="user-details">
-        <view class="username">小张同学</view>
-        <view class="user-motto">OOTD爱好者</view>
+    <block wx:if="{{hasUserInfo}}">
+      <view class="user-info">
+        <image src="{{userInfo.avatarUrl}}" class="profile-avatar" mode="aspectFill"></image>
+        <view class="user-details">
+          <view class="username">{{userInfo.nickName}}</view>
+          <view class="user-motto">OOTD爱好者</view>
+        </view>
       </view>
-    </view>
+    </block>
+    <block wx:else>
+      <view class="user-info">
+        <image src="/assets/images/default-avatar.png" class="profile-avatar" mode="aspectFill"></image>
+        <view class="user-details">
+          <view class="username">未登录</view>
+          <button class="auth-button" bindtap="getUserProfile">点击授权微信登录</button>
+        </view>
+      </view>
+    </block>
   </view>
   
   <!-- 个人信息卡片 -->
@@ -136,6 +147,7 @@
 </view>
 
 <!-- 微信小程序底部导航栏 -->
+<!-- 
 <view class="wx-tab-bar">
   <navigator url="/pages/index/index" open-type="switchTab" class="wx-tab-item">
     <view class="wx-tab-icon">👕</view>
@@ -146,3 +158,4 @@
     <view>我的</view>
   </view>
 </view>
+-->

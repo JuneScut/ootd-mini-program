@@ -17,6 +17,7 @@
   justify-content: center;
   padding: 24px;
   transition: transform 0.5s ease-in-out;
+  box-sizing: border-box;
 }
 
 .slide-1 {
@@ -168,7 +169,7 @@
 }
 
 .form-input {
-  width: 100%;
+  width: 80%;
   padding: 12px 16px 12px 36px;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -257,4 +258,5 @@
   border-radius: 12px;
   font-size: 16px;
   margin-bottom: 16px;
+  box-sizing: border-box;
 }
