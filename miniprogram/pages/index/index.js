@@ -109,7 +109,7 @@ Page({
 
     // 请求天气API
     wx.request({
-      url: "http://localhost:3000/api/weather",
+      url: "https://ootd-server-qmjdgwq5u-junescuts-projects.vercel.app/api/weather",
       method: "POST",
       data: {
         city: city,
@@ -262,7 +262,7 @@ Page({
 
       // 发起请求
       wx.request({
-        url: "http://localhost:3000/api/ootd",
+        url: "https://ootd-server-qmjdgwq5u-junescuts-projects.vercel.app/api/ootd",
         method: "POST",
         data: ootdParams,
         success: (res) => {
