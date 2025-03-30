@@ -3,18 +3,13 @@
   "builds": [
     {
       "src": "app.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 120
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/api/ootd",
-      "dest": "app.js",
-      "headers": {
-        "Cache-Control": "no-cache"
-      },
-      "maxDuration": 120
-    },
     {
       "src": "/(.*)",
       "dest": "app.js"
