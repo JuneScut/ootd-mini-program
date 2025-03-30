@@ -1,27 +1,105 @@
 <!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+<view class="content-container">
+  <!-- 今日天气卡片 -->
+  <skeleton type="weather" loading="{{loading}}">
+    <view class="card weather-card">
+      <view class="flex justify-between items-start mb-6">
+        <view>
+          <view class="city-name">{{city}}</view>
+          <view class="date-text">{{date}}</view>
         </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <view class="text-right">
+          <view class="flex items-center">
+            <text class="weather-icon-large weather-animation">{{weatherIcon}}</text>
+            <text class="temperature-large">{{temperature}}°</text>
+          </view>
+          <view class="weather-desc">{{weatherDesc}}</view>
+        </view>
+      </view>
+      
+      <view class="weather-details">
+        <view class="weather-detail-item">
+          <text class="detail-icon">💨</text>
+          <view class="detail-label">{{windDirection}}</view>
+          <view class="detail-value">{{windLevel}}</view>
+        </view>
+        <view class="weather-detail-item">
+          <text class="detail-icon">💧</text>
+          <view class="detail-label">湿度</view>
+          <view class="detail-value">{{humidity}}</view>
+        </view>
+        <view class="weather-detail-item">
+          <text class="detail-icon">☀️</text>
+          <view class="detail-label">紫外线</view>
+          <view class="detail-value">{{uvLevel}}</view>
+        </view>
+      </view>
+      
+      <view class="bg-cloud">☁️</view>
+    </view>
+  </skeleton>
+  
+  <!-- 近七日天气卡片 -->
+  <skeleton type="weekly" loading="{{loading}}">
+    <view class="card">
+      <view class="section-title">近七日天气</view>
+      
+      <scroll-view scroll-x="true" class="weather-days">
+        <view class="weather-days-content">
+          <block wx:for="{{weeklyWeather}}" wx:key="day">
+            <view class="weather-day">
+              <view class="day-name">{{item.day}}</view>
+              <text class="day-icon">{{item.icon}}</text>
+              <view class="day-high">{{item.high}}°</view>
+              <view class="day-low">{{item.low}}°</view>
+            </view>
+            <view wx:if="{{index < weeklyWeather.length-1}}" class="day-divider"></view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+  </skeleton>
+  
+  <!-- 今日穿搭风格卡片 -->
+  <view class="card">
+    <view class="section-title">今日穿搭风格</view>
+    <view class="style-desc">选择你今天想要的穿搭风格</view>
+    
+    <view class="style-chips">
+      <block wx:for="{{styleOptions}}" wx:key="*this">
+        <view class="style-chip {{currentStyle === item ? 'active' : ''}}" 
+              bindtap="selectStyle" data-style="{{item}}">{{item}}</view>
       </block>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+    
+    <view class="mt-6">
+      <button class="gradient-button" bindtap="showOOTDPopup">
+        生成今日OOTD
+      </button>
     </view>
   </view>
-</scroll-view>
+</view>
+
+<!-- 引入OOTD弹出层组件 -->
+<popup 
+  show="{{showPopup}}" 
+  loading="{{ootdLoading}}"
+  temperature="{{temperature}}" 
+  weatherDesc="{{weatherDesc}}" 
+  styleType="{{currentStyle}}" 
+  ootdAdvice="{{ootdAdvice}}" 
+  carouselItems="{{carouselItems}}"
+  bindclose="hideOOTDPopup">
+</popup>
+
+<!-- 微信小程序底部导航栏 -->
+<view class="wx-tab-bar">
+  <view class="wx-tab-item active">
+    <text class="wx-tab-icon">👕</text>
+    <view>OOTD</view>
+  </view>
+  <navigator url="/pages/profile/profile" open-type="switchTab" class="wx-tab-item">
+    <text class="wx-tab-icon">👤</text>
+    <view>我的</view>
+  </navigator>
+</view>

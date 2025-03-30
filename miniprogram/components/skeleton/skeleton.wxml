@@ -1,0 +1,47 @@
+<view class="skeleton" wx:if="{{loading}}">
+  <!-- 天气卡片骨架屏 -->
+  <view class="weather-skeleton" wx:if="{{type === 'weather'}}">
+    <view class="header">
+      <view class="left">
+        <view class="city-skeleton"></view>
+        <view class="date-skeleton"></view>
+      </view>
+      <view class="right">
+        <view class="temp-skeleton"></view>
+        <view class="desc-skeleton"></view>
+      </view>
+    </view>
+    <view class="details">
+      <view class="detail-item">
+        <view class="icon-skeleton"></view>
+        <view class="text-skeleton"></view>
+        <view class="value-skeleton"></view>
+      </view>
+      <view class="detail-item">
+        <view class="icon-skeleton"></view>
+        <view class="text-skeleton"></view>
+        <view class="value-skeleton"></view>
+      </view>
+      <view class="detail-item">
+        <view class="icon-skeleton"></view>
+        <view class="text-skeleton"></view>
+        <view class="value-skeleton"></view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 周天气骨架屏 -->
+  <view class="weekly-skeleton" wx:elif="{{type === 'weekly'}}">
+    <view class="title-skeleton"></view>
+    <view class="days-container">
+      <view class="day-skeleton" wx:for="{{7}}" wx:key="index">
+        <view class="day-name-skeleton"></view>
+        <view class="day-icon-skeleton"></view>
+        <view class="day-temp-skeleton"></view>
+        <view class="day-temp-skeleton small"></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<slot wx:else></slot>

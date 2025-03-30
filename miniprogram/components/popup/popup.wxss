@@ -1,0 +1,206 @@
+/* 弹出层样式 */
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.popup-mask.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-content {
+  background-color: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 20px 20px 30px 20px;
+  width: 100%;
+  max-height: 80vh;
+  position: relative;
+  transition: transform 0.3s ease-out;
+}
+
+.popup-scroll {
+  max-height: calc(80vh - 40px);
+}
+
+.popup-handle {
+  width: 40px;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+  position: relative;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.popup-handle::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  /* 增大点击区域但不显示 */
+}
+
+.popup-handle:active {
+  background-color: #ccc;
+  cursor: grabbing;
+}
+
+.popup-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: #999;
+}
+
+.popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.popup-subtitle {
+  color: #888;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.ai-advice {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.advice-title {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.advice-content {
+  color: #555;
+  line-height: 1.5;
+}
+
+.inspiration-title {
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* 轮播图样式 */
+.carousel {
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+.popup-content:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+  transform: translateX(-100%);
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.popup-content.loading:after {
+  opacity: 1;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 骨架屏元素样式 */
+.popup-title-skeleton {
+  width: 140px;
+  height: 24px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.popup-subtitle-skeleton {
+  width: 220px;
+  height: 16px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.advice-container {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.advice-title-skeleton {
+  width: 80px;
+  height: 18px;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-line {
+  height: 16px;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeleton-line.short {
+  width: 70%;
+}
+
+.inspiration-title-skeleton {
+  width: 100px;
+  height: 18px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.carousel-skeleton {
+  width: 100%;
+  height: 180px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+}

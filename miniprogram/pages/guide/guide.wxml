@@ -1,0 +1,92 @@
+<view class="onboarding-container">
+  <!-- 首页介绍 -->
+  <view class="slide {{currentSlide === 1 ? 'slide-1' : currentSlide === 2 ? 'slide-2' : currentSlide === 3 ? 'slide-3' : 'slide-4'}}" id="slide1">
+    <view class="intro-content">
+      <image src="/assets/icons/weather-icon.png" class="intro-image" mode="aspectFit"></image>
+      <view class="intro-title">天气+OOTD</view>
+      <view class="intro-subtitle">一款智能穿搭推荐小程序</view>
+    </view>
+    
+    <view class="intro-desc">
+      基于当日天气为您推荐最适合的穿搭方案，让您告别选择困难症！
+    </view>
+    
+    <button class="start-button" bindtap="goToSlide" data-slide="2">
+      开始设置
+    </button>
+  </view>
+  
+  <!-- 设置城市 -->
+  <view class="slide {{currentSlide === 2 ? 'slide-2-active' : currentSlide === 1 ? 'slide-2' : currentSlide === 3 ? 'slide-2-prev' : 'slide-2-prev-prev'}}" id="slide2">
+    <view class="form-container">
+      <view class="form-title">您所在的城市是？</view>
+      <view class="form-subtitle">我们需要获取您所在城市的天气信息</view>
+      
+      <view class="search-box">
+        <text class="search-icon">🔍</text>
+        <input type="text" class="form-input" placeholder="输入城市名称" bindinput="onCityInput" value="{{city}}"/>
+      </view>
+      
+      <view class="hot-cities">
+        <view class="hot-cities-title">热门城市</view>
+        <view class="cities-list">
+          <view class="city-tag" bindtap="setCity" data-city="北京">北京</view>
+          <view class="city-tag" bindtap="setCity" data-city="上海">上海</view>
+          <view class="city-tag" bindtap="setCity" data-city="广州">广州</view>
+          <view class="city-tag" bindtap="setCity" data-city="深圳">深圳</view>
+          <view class="city-tag" bindtap="setCity" data-city="杭州">杭州</view>
+          <view class="city-tag" bindtap="setCity" data-city="成都">成都</view>
+        </view>
+      </view>
+      
+      <button class="next-button" bindtap="goToSlide" data-slide="3">
+        下一步
+      </button>
+    </view>
+  </view>
+  
+  <!-- 选择性别 -->
+  <view class="slide {{currentSlide === 3 ? 'slide-3-active' : currentSlide < 3 ? 'slide-3' : 'slide-3-prev'}}" id="slide3">
+    <view class="form-container">
+      <view class="form-title">您的性别是？</view>
+      <view class="form-subtitle">我们会根据您的性别推荐不同的穿搭风格</view>
+      
+      <view class="gender-options">
+        <view class="gender-option {{gender === 'male' ? 'active' : ''}}" bindtap="selectGender" data-gender="male">
+          <text class="gender-icon">♂</text>
+          <text>男生</text>
+        </view>
+        <view class="gender-option {{gender === 'female' ? 'active' : ''}}" bindtap="selectGender" data-gender="female">
+          <text class="gender-icon">♀</text>
+          <text>女生</text>
+        </view>
+      </view>
+      
+      <button class="next-button" bindtap="goToSlide" data-slide="4">
+        下一步
+      </button>
+    </view>
+  </view>
+  
+  <!-- 个人描述 -->
+  <view class="slide {{currentSlide === 4 ? 'slide-4-active' : 'slide-4'}}" id="slide4">
+    <view class="form-container">
+      <view class="form-title">您的穿衣风格偏好</view>
+      <view class="form-subtitle">简单描述一下您喜欢的风格，我们将为您提供更准确的穿搭推荐</view>
+      
+      <textarea class="form-textarea" placeholder="例如：喜欢简约风格，偏爱深色系，不喜欢太花哨的设计..." bindinput="onDescriptionInput" value="{{description}}"></textarea>
+      
+      <button class="complete-button" bindtap="completeOnboarding">
+        开始使用
+      </button>
+    </view>
+  </view>
+  
+  <!-- 进度指示器 -->
+  <view class="progress-dots">
+    <view class="dot {{currentSlide === 1 ? 'active' : ''}}"></view>
+    <view class="dot {{currentSlide === 2 ? 'active' : ''}}"></view>
+    <view class="dot {{currentSlide === 3 ? 'active' : ''}}"></view>
+    <view class="dot {{currentSlide === 4 ? 'active' : ''}}"></view>
+  </view>
+</view>

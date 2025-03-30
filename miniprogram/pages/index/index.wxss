@@ -1,62 +1,334 @@
 /**index.wxss**/
+
+/* 全局样式 */
 page {
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  color: #333;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.scrollarea {
-  flex: 1;
-  overflow-y: hidden;
 }
 
-.userinfo {
+/* 内容区域 */
+.content-container {
+  padding: 16px;
+  padding-bottom: 80px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 天气卡片 */
+.weather-card {
+  background: linear-gradient(to bottom right, #614fec, #8074ff);
+  color: white;
+  padding: 24px;
+}
+
+.city-name {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.date-text {
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.temperature-large {
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.weather-icon-large {
+  font-size: 48px;
+  margin-right: 10px;
+}
+
+.weather-desc {
+  opacity: 0.8;
+}
+
+.weather-details {
+  display: flex;
+  margin-top: 16px;
+}
+
+.weather-detail-item {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #aaa;
-  width: 80%;
+  margin: 0 4px;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.detail-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
 }
 
-.usermotto {
-  margin-top: 200px;
+.detail-label {
+  font-size: 12px;
+  opacity: 0.8;
 }
 
-.avatar-wrapper {
-  padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.detail-value {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
+.bg-cloud {
+  position: absolute;
+  top: -32px;
+  right: -32px;
+  font-size: 96px;
+  opacity: 0.1;
 }
 
-.nickname-wrapper {
-  display: flex;
+/* 周天气 */
+.section-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.weather-days {
   width: 100%;
+  white-space: nowrap;
+}
+
+.weather-days-content {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.weather-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+}
+
+.day-name {
+  font-size: 12px;
+  color: #888;
+}
+
+.day-icon {
+  font-size: 24px;
+  margin: 8px 0;
+}
+
+.day-high {
+  font-weight: 500;
+}
+
+.day-low {
+  font-size: 12px;
+  color: #888;
+}
+
+.day-divider {
+  width: 1px;
+  background-color: #eee;
+  height: 60px;
+}
+
+/* 穿搭风格 */
+.style-desc {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.style-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.style-chip {
+  background-color: #f0f2f5;
+  border-radius: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.style-chip.active {
+  background-color: #614fec;
+  color: white;
+}
+
+/* 按钮样式 */
+.gradient-button {
+  background: linear-gradient(to right, #614fec, #8074ff);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(97, 79, 236, 0.3);
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* 弹出层样式 */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-content {
+  background-color: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 20px;
+  width: 100%;
+  max-height: 70vh;
+  position: relative;
+}
+
+.popup-handle {
+  width: 40px;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+.popup-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: #999;
+}
+
+.popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.popup-subtitle {
+  color: #888;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.ai-advice {
+  background-color: #f9f9f9;
+  border-radius: 12px;
   padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
+  margin-bottom: 16px;
 }
 
-.nickname-label {
-  width: 105px;
+.advice-title {
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
-.nickname-input {
+.advice-content {
+  color: #555;
+  line-height: 1.5;
+}
+
+.inspiration-title {
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* 轮播图样式 */
+.carousel {
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+/* 底部导航栏 */
+.wx-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #fff;
+  display: flex;
+  border-top: 1px solid #f0f0f0;
+  z-index: 99;
+}
+
+.wx-tab-item {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  font-size: 12px;
+}
+
+.wx-tab-item.active {
+  color: #614fec;
+}
+
+.wx-tab-icon {
+  font-size: 24px;
+  margin-bottom: 2px;
+}
+
+/* 动画 */
+@keyframes weather-float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.weather-animation {
+  animation: weather-float 3s ease-in-out infinite;
 }

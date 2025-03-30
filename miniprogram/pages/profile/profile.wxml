@@ -1,0 +1,148 @@
+<view class="content-container">
+  <!-- 个人资料头部 -->
+  <view class="profile-header text-white">
+    <view class="user-info">
+      <image src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="profile-avatar" mode="aspectFill"></image>
+      <view class="user-details">
+        <view class="username">小张同学</view>
+        <view class="user-motto">OOTD爱好者</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 个人信息卡片 -->
+  <view class="card">
+    <view class="section-title">个人信息</view>
+    
+    <view class="info-item" bindtap="editCity">
+      <view class="info-icon">
+        <text>📍</text>
+      </view>
+      <view class="info-content">
+        <view class="info-label">城市</view>
+        <view class="info-value">{{city}}</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+    
+    <view class="info-item" bindtap="editGender">
+      <view class="info-icon">
+        <text>⚤</text>
+      </view>
+      <view class="info-content">
+        <view class="info-label">性别</view>
+        <view class="info-value">{{gender}}</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+    
+    <view class="info-item" bindtap="editDescription">
+      <view class="info-icon">
+        <text>🆔</text>
+      </view>
+      <view class="info-content">
+        <view class="info-label">个人描述</view>
+        <view class="info-value">{{description}}</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 设置卡片 -->
+  <view class="card">
+    <view class="section-title">设置</view>
+    
+    <view class="info-item">
+      <view class="info-icon">
+        <text>🔔</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">天气通知</view>
+      </view>
+      <view class="arrow-right">
+        <switch checked="{{weatherNotification}}" bindchange="toggleWeatherNotification" color="#614fec"/>
+      </view>
+    </view>
+    
+    <view class="info-item" bindtap="goToStyleManagement">
+      <view class="info-icon">
+        <text>👕</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">偏好风格管理</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+    
+    <view class="info-item" bindtap="goToSystemSettings">
+      <view class="info-icon">
+        <text>⚙️</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">系统设置</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 关于卡片 -->
+  <view class="card">
+    <view class="info-item" bindtap="goToAboutUs">
+      <view class="info-icon">
+        <text>ℹ️</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">关于我们</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+    
+    <view class="info-item" bindtap="goToHelp">
+      <view class="info-icon">
+        <text>❓</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">帮助中心</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+    
+    <view class="info-item border-b-0" bindtap="goToRate">
+      <view class="info-icon">
+        <text>⭐</text>
+      </view>
+      <view class="info-content">
+        <view class="info-value">评分鼓励</view>
+      </view>
+      <view class="arrow-right">
+        <text>〉</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 微信小程序底部导航栏 -->
+<view class="wx-tab-bar">
+  <navigator url="/pages/index/index" open-type="switchTab" class="wx-tab-item">
+    <view class="wx-tab-icon">👕</view>
+    <view>OOTD</view>
+  </navigator>
+  <view class="wx-tab-item active">
+    <view class="wx-tab-icon">👤</view>
+    <view>我的</view>
+  </view>
+</view>

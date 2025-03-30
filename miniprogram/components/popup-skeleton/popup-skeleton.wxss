@@ -1,0 +1,120 @@
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.popup-mask.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-content {
+  position: relative;
+  background-color: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 20px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.popup-content:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.popup-handle {
+  width: 40px;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+.popup-title-skeleton {
+  width: 140px;
+  height: 24px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.popup-subtitle-skeleton {
+  width: 220px;
+  height: 16px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.advice-container {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.advice-title-skeleton {
+  width: 80px;
+  height: 18px;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-line {
+  height: 16px;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeleton-line.short {
+  width: 70%;
+}
+
+.inspiration-title-skeleton {
+  width: 100px;
+  height: 18px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.carousel-skeleton {
+  width: 100%;
+  height: 180px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+}

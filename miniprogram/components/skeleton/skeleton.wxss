@@ -1,0 +1,168 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 天气卡片骨架屏 */
+.weather-skeleton {
+  background: linear-gradient(to bottom right, #d4d0f5, #e6e3fa);
+  border-radius: 16px;
+  padding: 20px;
+  height: 200px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.city-skeleton {
+  width: 80px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.date-skeleton {
+  width: 120px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+.temp-skeleton {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.desc-skeleton {
+  width: 40px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-item {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 4px;
+}
+
+.icon-skeleton {
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  margin-bottom: 6px;
+}
+
+.text-skeleton {
+  width: 30px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.value-skeleton {
+  width: 20px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 周天气骨架屏 */
+.weekly-skeleton {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.title-skeleton {
+  width: 100px;
+  height: 22px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.days-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.day-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.day-name-skeleton {
+  width: 30px;
+  height: 12px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.day-icon-skeleton {
+  width: 30px;
+  height: 30px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  margin: 8px 0;
+}
+
+.day-temp-skeleton {
+  width: 20px;
+  height: 18px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.day-temp-skeleton.small {
+  height: 12px;
+  opacity: 0.7;
+}

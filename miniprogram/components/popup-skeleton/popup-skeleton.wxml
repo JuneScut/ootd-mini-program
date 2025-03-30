@@ -1,0 +1,21 @@
+<view class="popup-mask {{show ? 'show' : ''}}" catchtap="stopPropagation">
+  <view class="popup-content">
+    <view class="popup-handle"></view>
+    
+    <view class="popup-title-skeleton"></view>
+    <view class="popup-subtitle-skeleton"></view>
+    
+    <view class="advice-container">
+      <view class="advice-title-skeleton"></view>
+      <view class="advice-content-skeleton">
+        <view class="skeleton-line"></view>
+        <view class="skeleton-line"></view>
+        <view class="skeleton-line"></view>
+        <view class="skeleton-line short"></view>
+      </view>
+    </view>
+    
+    <view class="inspiration-title-skeleton"></view>
+    <view class="carousel-skeleton"></view>
+  </view>
+</view>

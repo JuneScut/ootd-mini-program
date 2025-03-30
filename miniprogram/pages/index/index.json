@@ -1,4 +1,8 @@
 {
   "usingComponents": {
-  }
+    "popup": "../../components/popup/popup",
+    "skeleton": "../../components/skeleton/skeleton"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f8fafc"
 }

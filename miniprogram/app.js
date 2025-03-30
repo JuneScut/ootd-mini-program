@@ -1,19 +1,21 @@
 // app.js
 App({
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    // 检查是否是首次使用
+    this.checkFirstTimeUse();
   },
+
+  checkFirstTimeUse() {
+    const userInfo = wx.getStorageSync("userInfo");
+    // 如果没有用户信息或没有完成引导，跳转到引导页
+    if (!userInfo || !userInfo.hasCompleteGuide) {
+      wx.redirectTo({
+        url: "/pages/guide/guide",
+      });
+    }
+  },
+
   globalData: {
-    userInfo: null
-  }
-})
+    userInfo: null,
+  },
+});

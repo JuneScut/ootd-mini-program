@@ -1,0 +1,53 @@
+<view class="popup-mask {{show ? 'show' : ''}}" bindtap="onPopupBackdropClick">
+  <view class="popup-content" catchtap="stopPropagation" style="transform: translateY({{moveY}}px);">
+    <view class="popup-handle" 
+          catchtouchstart="handleTouchStart" 
+          catchtouchmove="handleTouchMove" 
+          catchtouchend="handleTouchEnd"
+          catchtouchcancel="handleTouchEnd"></view>
+    <view class="popup-close" bindtap="closePopup">✕</view>
+    
+    <block wx:if="{{loading}}">
+      <!-- 骨架屏内容 -->
+      <view class="popup-title-skeleton"></view>
+      <view class="popup-subtitle-skeleton"></view>
+      
+      <view class="advice-container">
+        <view class="advice-title-skeleton"></view>
+        <view class="advice-content-skeleton">
+          <view class="skeleton-line"></view>
+          <view class="skeleton-line"></view>
+          <view class="skeleton-line"></view>
+          <view class="skeleton-line short"></view>
+        </view>
+      </view>
+      
+      <view class="inspiration-title-skeleton"></view>
+      <view class="carousel-skeleton"></view>
+    </block>
+    
+    <block wx:else>
+      <!-- 正常内容 -->
+      <scroll-view scroll-y="true" class="popup-scroll">
+        <view class="popup-title">今日OOTD推荐</view>
+        <view class="popup-subtitle">基于今日天气 ({{temperature}}°C {{weatherDesc}}) 和你选择的{{styleType}}</view>
+        
+        <view class="ai-advice">
+          <view class="advice-title">AI穿搭建议</view>
+          <view class="advice-content">{{ootdAdvice}}</view>
+        </view>
+        
+        <view class="inspiration-title">穿搭灵感</view>
+        
+        <!-- 轮播图 -->
+        <swiper class="carousel" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{4000}}" circular="{{true}}" bindchange="onSwiperChange">
+          <block wx:for="{{carouselItems}}" wx:key="index">
+            <swiper-item>
+              <image src="{{item}}" mode="aspectFill" class="carousel-item"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </scroll-view>
+    </block>
+  </view>
+</view>
