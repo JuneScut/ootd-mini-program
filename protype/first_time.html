@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首次使用 - 天气穿搭</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .onboarding-container {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(to bottom right, #614fec, #9c8eff);
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 24px;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slide-1 {
+            transform: translateX(0);
+        }
+        
+        .slide-2 {
+            transform: translateX(100%);
+        }
+        
+        .slide-3 {
+            transform: translateX(200%);
+        }
+        
+        .slide-4 {
+            transform: translateX(300%);
+        }
+        
+        .intro-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin: 0 auto 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: #614fec;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(97, 79, 236, 0.2);
+        }
+        
+        .gender-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .gender-option {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .gender-option.active {
+            border-color: #614fec;
+            background-color: rgba(97, 79, 236, 0.05);
+        }
+        
+        .gender-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        
+        .gender-option.active .gender-icon {
+            color: #614fec;
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <!-- 首页介绍 -->
+        <div class="slide slide-1" id="slide1">
+            <div class="text-center text-white mb-8">
+                <img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="Weather & OOTD" class="intro-image">
+                <h1 class="text-3xl font-bold mb-2">天气+OOTD</h1>
+                <p class="text-xl">一款智能穿搭推荐小程序</p>
+            </div>
+            
+            <p class="text-white text-opacity-80 text-center mb-12">
+                基于当日天气为您推荐最适合的穿搭方案，让您告别选择困难症！
+            </p>
+            
+            <button class="gradient-button bg-white text-indigo-600 w-full" onclick="goToSlide(2)">
+                开始设置
+            </button>
+        </div>
+        
+        <!-- 设置城市 -->
+        <div class="slide slide-2" id="slide2">
+            <div class="form-container">
+                <h2 class="text-2xl font-bold mb-6 text-center">您所在的城市是？</h2>
+                <p class="text-gray-500 mb-6 text-center">我们需要获取您所在城市的天气信息</p>
+                
+                <div class="mb-4 relative">
+                    <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    <input type="text" class="form-input pl-10" placeholder="输入城市名称" id="cityInput">
+                </div>
+                
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium text-gray-500 mb-2">热门城市</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('北京')">北京</div>
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('上海')">上海</div>
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('广州')">广州</div>
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('深圳')">深圳</div>
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('杭州')">杭州</div>
+                        <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" onclick="setCity('成都')">成都</div>
+                    </div>
+                </div>
+                
+                <button class="gradient-button w-full" onclick="goToSlide(3)">
+                    下一步
+                </button>
+            </div>
+        </div>
+        
+        <!-- 选择性别 -->
+        <div class="slide slide-3" id="slide3">
+            <div class="form-container">
+                <h2 class="text-2xl font-bold mb-6 text-center">您的性别是？</h2>
+                <p class="text-gray-500 mb-6 text-center">我们会根据您的性别推荐不同的穿搭风格</p>
+                
+                <div class="gender-options">
+                    <div class="gender-option" id="male" onclick="selectGender('male')">
+                        <i class="fas fa-mars gender-icon"></i>
+                        <span>男生</span>
+                    </div>
+                    <div class="gender-option" id="female" onclick="selectGender('female')">
+                        <i class="fas fa-venus gender-icon"></i>
+                        <span>女生</span>
+                    </div>
+                </div>
+                
+                <button class="gradient-button w-full" onclick="goToSlide(4)">
+                    下一步
+                </button>
+            </div>
+        </div>
+        
+        <!-- 个人描述 -->
+        <div class="slide slide-4" id="slide4">
+            <div class="form-container">
+                <h2 class="text-2xl font-bold mb-6 text-center">您的穿衣风格偏好</h2>
+                <p class="text-gray-500 mb-6 text-center">简单描述一下您喜欢的风格，我们将为您提供更准确的穿搭推荐</p>
+                
+                <textarea class="form-input" rows="4" placeholder="例如：喜欢简约风格，偏爱深色系，不喜欢太花哨的设计..." id="styleDescription"></textarea>
+                
+                <button class="gradient-button w-full" onclick="completeOnboarding()">
+                    开始使用
+                </button>
+            </div>
+        </div>
+        
+        <!-- 进度指示器 -->
+        <div class="progress-dots">
+            <div class="dot active" id="dot1"></div>
+            <div class="dot" id="dot2"></div>
+            <div class="dot" id="dot3"></div>
+            <div class="dot" id="dot4"></div>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 1;
+        let selectedCity = '';
+        let selectedGender = '';
+        
+        function goToSlide(slideNumber) {
+            // 先验证输入
+            if (slideNumber === 3 && !document.getElementById('cityInput').value) {
+                alert('请输入您所在的城市');
+                return;
+            }
+            
+            if (slideNumber === 4 && !selectedGender) {
+                alert('请选择您的性别');
+                return;
+            }
+            
+            // 更新当前滑块
+            currentSlide = slideNumber;
+            
+            // 更新滑块位置
+            for (let i = 1; i <= 4; i++) {
+                const slide = document.getElementById(`slide${i}`);
+                slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+            }
+            
+            // 更新指示器
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot${i}`);
+                if (i === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            }
+        }
+        
+        function setCity(city) {
+            selectedCity = city;
+            document.getElementById('cityInput').value = city;
+        }
+        
+        function selectGender(gender) {
+            selectedGender = gender;
+            
+            // 更新样式
+            document.getElementById('male').classList.remove('active');
+            document.getElementById('female').classList.remove('active');
+            document.getElementById(gender).classList.add('active');
+        }
+        
+        function completeOnboarding() {
+            const description = document.getElementById('styleDescription').value;
+            
+            if (!description) {
+                alert('请输入您的穿衣风格偏好');
+                return;
+            }
+            
+            // 在实际应用中，这里应该发送数据到服务器
+            console.log({
+                city: selectedCity || document.getElementById('cityInput').value,
+                gender: selectedGender,
+                description: description
+            });
+            
+            // 重定向到主页
+            window.location.href = 'ootd.html';
+        }
+    </script>
+</body>
+</html> 
